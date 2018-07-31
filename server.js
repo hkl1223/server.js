@@ -31,20 +31,30 @@ var server = http.createServer(function(request, response){
 
 
 
+console.log('HTTP 路径为\n' + path)
+  if(path == '/style.css'){
+    response.setHeader('Content-Type', 'text/css; charset=utf-8')
+    response.write('body{background-color: #ddd;}h1{color: red;}')
+    response.end()
+  }else if(path == '/main.js'){
+    response.setHeader('Content-Type', 'text/javascript; charset=utf-8')
+    response.write('alert("这是JS执行的")')
+    response.end()
+  }else if(path == '/'){
+    response.setHeader('Content-Type', 'text/html; charset=utf-8')
+    response.write('<!DOCTYPE>\n<html>'  + 
+      '<head><link rel="stylesheet" href="/style.js">' +
+      '</head><body>'  +
+      '<h1>你好</h1>' +
+      '<script src="/script.html"></script>' +
+      '</body></html>')
+    response.end()
+  }else{
+    response.statusCode = 404
+    response.end()
+  }
 
 
-console.log('HTTP 路径为 \n' +path)
-if(path == '/'){
-response.write('Hi\n')
-response.end()
-else if (path == '/index'){
-response.setHeader('Content-Type', 'text/html; charset=utf-8')
-response.write('<!DOCTYPE>\n<html><head></head><body><h1>你好</h1></body></html>
-response.end()
-}else{
-response.statusCode = 404
-response.end()
-}
 
 
 
@@ -53,11 +63,6 @@ response.end()
 
 
 
-
-
-
-
-	
   /******** 代码结束，下面不要看 ************/
 })
 
